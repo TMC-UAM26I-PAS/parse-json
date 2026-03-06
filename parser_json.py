@@ -74,9 +74,17 @@ def analizar_objeto():
         Exception: Si la estructura del objeto no es válida.
     """
     consumir("LLAVE_IZQ")
-    analizar_par()
+    analizar_pares ()
     consumir("LLAVE_DER")
-
+def analizar_pares ():
+    """
+    PARES -> PAR | PAR, PARES
+    """
+    # Primero debe existir al mernos un par 
+    analizar_par()
+    # Mientras el token actual sea una COMA, entonces seguimos consumiendo pares 
+    actual=token_actual ()
+    #Aquí actualizamos para la siguente iteración 
 
 def analizar_par():
     """
@@ -184,3 +192,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
