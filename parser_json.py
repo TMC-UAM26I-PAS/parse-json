@@ -92,7 +92,8 @@ def analizar_pares ():
             consumir("COMA")
             analizar_par()
         else:
-            #Si no hay coma, nos salimos del break
+            #Si no hay coma, nos salimos
+            break
 
             
 def analizar_par():
