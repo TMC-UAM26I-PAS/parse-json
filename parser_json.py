@@ -65,10 +65,10 @@ def consumir(tipo_esperado):
 
 def analizar_objeto():
     """
-    Analiza un objeto JSON simple.
+    Analiza un objeto JSON.
 
     Gramática implementada:
-        OBJETO -> { PAR }
+        OBJETO -> { PARES }
 
     Raises:
         Exception: Si la estructura del objeto no es válida.
@@ -79,13 +79,22 @@ def analizar_objeto():
 def analizar_pares ():
     """
     PARES -> PAR | PAR, PARES
+    Raises:
+       Exception: Si la estructura a los pares no es válida.
     """
     # Primero debe existir al mernos un par 
     analizar_par()
-    # Mientras el token actual sea una COMA, entonces seguimos consumiendo pares 
-    actual=token_actual ()
-    #Aquí actualizamos para la siguente iteración 
+    # Mientras haya comas, entonces seguimos consumiendo pares 
+    while token_actual() is not None:
+        tipo, valor= token_actual()
+        
+        if tipo == "COMA":
+            consumir("COMA")
+            analizar_par()
+        else:
+            #Si no hay coma, nos salimos del break
 
+            
 def analizar_par():
     """
     Analiza un par clave-valor.
@@ -122,6 +131,10 @@ def analizar_valor():
         consumir("CADENA")
     elif tipo == "NUMERO":
         consumir("NUMERO")
+
+    elif tipo=="LLAVE_IZQ":
+        #Significa que si encontramos una llave izquierda, es un objeto anidado
+        analizar_objeto()
     else:
         raise Exception("Valor no valido: " + valor)
 
